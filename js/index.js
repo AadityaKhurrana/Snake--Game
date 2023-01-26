@@ -9,8 +9,10 @@ let lastPaintTime = 0;
 let snakeArr = [
     {x: 13, y: 15}
 ];
+let specialFood=0;
 
 food = {x: 6, y: 7};
+special={x:3,y:15};
 
 // Game Functions
 function main(ctime) {
@@ -49,11 +51,32 @@ function gameEngine()
         document.getElementById("score").innerHTML=`Score:${score}`;
         alert("Game Over. Press any key to play again!");
         snakeArr = [{x: 13, y: 15}];
+        food = {x: 6, y: 7};
+        special={x:3,y:15};
         musicSound.play();
-        
+       speed=5;   
     }
     //when snake eat the food generate the random food
-    if(snakeArr[0].x==food.x && snakeArr[0].y==food.y)
+    if(snakeArr[0].x==special.x && snakeArr[0].y==special.y)
+    {
+        foodSound.play()
+        score=score+4;
+        if(score%10===0)
+        {
+            speed*=1.5;
+        }
+        document.getElementById("score").innerHTML=`Score:${score}`;
+
+        for(let inc=0;inc<4;inc++)
+        {
+            snakeArr.unshift({x:snakeArr[0].x+inputDir.x , y:snakeArr[0].y+inputDir.y});
+        }
+        //snakeArr.unshift({x:snakeArr[0].x+inputDir.x , y:snakeArr[0].y+inputDir.y});
+        let a=2 , b=16 ;
+        special={x:Math.round(a+(b-a)*Math.random()), y:Math.round(a+(b-a)*Math.random())};
+        specialFood=1;
+    }
+    else if(snakeArr[0].x==food.x && snakeArr[0].y==food.y)
     {
         foodSound.play()
         score++;
@@ -65,6 +88,7 @@ function gameEngine()
         snakeArr.unshift({x:snakeArr[0].x+inputDir.x , y:snakeArr[0].y+inputDir.y});
         let a=2 , b=16 ;
         food={x:Math.round(a+(b-a)*Math.random()), y:Math.round(a+(b-a)*Math.random())};
+        specialFood=0;
     }
 
     // Move the snake
@@ -74,6 +98,18 @@ function gameEngine()
     }
     snakeArr[0].x=snakeArr[0].x+inputDir.x;
     snakeArr[0].y=snakeArr[0].y+inputDir.y;
+    // if( specialFood==1)
+    // {
+    //     for(let i=snakeArr.length-6;i>=0;i--)
+    //     {
+    //         snakeArr[i+1]={...snakeArr[i]};
+    //     }
+    //     for(let inc=0;inc<4;inc++)
+    //     {
+    //         snakeArr[0].x=snakeArr[0].x+inputDir.x;
+    //         snakeArr[0].y=snakeArr[0].y+inputDir.y;
+    //     }
+    // }
 
 
     // Part 2: Display the snake and Food
@@ -100,11 +136,17 @@ function gameEngine()
     foodElement.style.gridColumnStart = food.x;
     foodElement.classList.add('food')
     body.appendChild(foodElement);
+
+    specialElement = document.createElement('div');
+    specialElement.style.gridRowStart = special.y;
+    specialElement.style.gridColumnStart = special.x;
+    specialElement.classList.add('special')
+    body.appendChild(specialElement);
 }
 
 
 // Main logic starts here
-//musicSound.play();
+musicSound.play();
 window.requestAnimationFrame(main);
 window.addEventListener('keydown', e =>{
     inputDir = {x: 0, y: 1} // Start the game
