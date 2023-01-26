@@ -31,6 +31,12 @@
     border: 1px solid white;
     border-radius: 5% 50%;
 }
+.special
+{
+    background:linear-gradient(30deg,red,rgb(44, 242, 5));
+    border: 1px solid white;
+    border-radius: 5% 50%;
+}
 .snake
 {
     background:linear-gradient(30deg,rgb(123, 190, 123),rgb(38, 32, 32));
