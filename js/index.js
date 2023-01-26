@@ -98,18 +98,7 @@ function gameEngine()
     }
     snakeArr[0].x=snakeArr[0].x+inputDir.x;
     snakeArr[0].y=snakeArr[0].y+inputDir.y;
-    // if( specialFood==1)
-    // {
-    //     for(let i=snakeArr.length-6;i>=0;i--)
-    //     {
-    //         snakeArr[i+1]={...snakeArr[i]};
-    //     }
-    //     for(let inc=0;inc<4;inc++)
-    //     {
-    //         snakeArr[0].x=snakeArr[0].x+inputDir.x;
-    //         snakeArr[0].y=snakeArr[0].y+inputDir.y;
-    //     }
-    // }
+   
 
 
     // Part 2: Display the snake and Food
